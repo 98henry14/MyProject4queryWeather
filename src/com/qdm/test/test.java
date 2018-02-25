@@ -9,11 +9,15 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.management.StringValueExp;
+
+import org.junit.Test;
+
 import com.qdm.dao.ForecastDao;
 
 public class test {
-	public static void main(String[] args) {
-/*		String area = "101280101|101280102|101280103|101280104|101280105|101280106|101280107|101280108|101280109|101280110|101280111|101280112";
+	/*	public static void main(String[] args) {
+		String area = "101280101|101280102|101280103|101280104|101280105|101280106|101280107|101280108|101280109|101280110|101280111|101280112";
 //		area = new Array("101280101","101280102","101280103","101280104","101280105","101280106","101280107","101280108","101280109","101280110","101280111","101280112");
 		String[] areaArray = area.split("\\|");
 //		System.out.println(areaArray.length);
@@ -41,7 +45,7 @@ public class test {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 //		String[] strArr= new String[7];
 		List<String> strList = new ArrayList<String>();
@@ -55,5 +59,41 @@ public class test {
 		
 		System.out.println(strList.size()+"duoshaoge:->>>>"+strList.get(0));
 		
+	}*/
+	
+	
+	@Test
+	public void testQueryCol() {
+		ForecastDao fd =  new ForecastDao();
+		List<String> strArrList = new ArrayList<String>();
+		try {
+			List<Object> list = fd.queryAreain();
+				String str = "";
+				int index = 1;
+				for (Object object : list) {
+//					System.out.println(object.toString()+"-----"+object);
+					if(Math.floorMod(index, 20) == 0 ) {
+						str += object;
+						strArrList.add(str);
+						index++;
+						str="";
+					}else if(index != list.size()){
+						str += object+"|";
+						index++;
+						}else{
+							str += object;
+							strArrList.add(str);
+							break;
+					}
+				}
+				for (String strr : strArrList) {
+					System.out.println(strr);
+				}
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
 	}
 }

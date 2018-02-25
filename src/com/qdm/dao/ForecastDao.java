@@ -7,22 +7,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
 
 import com.qdm.domain.Forecast;
 import com.qdm.utils.DataSourceUtils;
 
 public class ForecastDao {
 
-/*	//向orderitem表插入数据
-	public void addOrderItem(Order order) throws SQLException {
-		QueryRunner runner = new QueryRunner();
-		String sql = "insert into orderitem values(?,?,?,?,?)";
-		Connection conn = DataSourceUtils.getConnection();
-		List<OrderItem> orderItems = order.getOrderItems();
-		for(OrderItem item : orderItems){
-			runner.update(conn,sql,item.getItemid(),item.getCount(),item.getSubtotal(),item.getProduct().getPid(),item.getOrder().getOid());
-		}
-	}*/
+	//insert weather condition to DB
 	public void addWeather(List<Forecast> fclist) throws SQLException{
 		QueryRunner runner = new QueryRunner();
 		String sql = "insert into forecast values(?,?,?,?,?,?,?,?,?,?)";
@@ -32,28 +24,13 @@ public class ForecastDao {
 		}
 		
 	}
-	
-	//test
-/*	public void showUser() throws SQLException{
-		QueryRunner runner = new QueryRunner();
-		String sql = "select * from user";
-		Connection conn = DataSourceUtils.getConnection();
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ResultSet rs = ps.executeQuery();
-		while(rs.next()) {
-			String field = rs.getString("host");
-			String user = rs.getString("user"); 
-			System.out.println(field+"~----"+user);
-		}
-	}*/
-	
-	//queryArea
-	public List<String> queryAll() throws SQLException{
-		QueryRunner runner  = new QueryRunner();
-		String sql ="select aid from areain";
-		Connection conn = DataSourceUtils.getConnection();
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		ResultSet rs = pstmt.executeQuery();
-		return null;
+
+	//queryAreain
+	public List<Object> queryAreain() throws SQLException{
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select aid from areain";
+		List<Object> collist = qr.query(sql, new ColumnListHandler("aid"));
+		return collist;
+		
 	}
 }
