@@ -18,6 +18,6 @@ public class TestPro {
 	public void queryArea() throws SQLException {
 		ForecastDao fd =  new ForecastDao();
 		Object[] info = fd.queryLocation("101280101");
-		System.out.println(info.toString());
+		System.out.println(info[0]+"----"+info[1]+"----"+info[2]);
 	}
 }

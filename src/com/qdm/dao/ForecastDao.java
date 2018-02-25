@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
@@ -24,12 +25,11 @@ public class ForecastDao {
 		for (Forecast fc : fclist) {
 			runner.update(conn, sql, fc.areaid,fc.bttq001,fc.wstq002,
 					fc.zgqw003,fc.zdqw004,fc.btfl005,fc.btfx007,
-					fc.wsfl006,fc.wsfx008,fc.fdate,this.queryLocation(fc.areaid)); 
+					fc.wsfl006,fc.wsfx008,fc.fdate,this.queryLocation(fc.areaid)[0],
+					this.queryLocation(fc.areaid)[1],this.queryLocation(fc.areaid)[2]); 
 		}
 		
 	}
-	
-
 	//queryAreain
 	public List<Object> queryAreain() throws SQLException{
 		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
@@ -50,7 +50,9 @@ public class ForecastDao {
 	public Object[] queryLocation(String id) throws SQLException {
 		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
 		String sql = "select province,city,district from areain where aid=?";
-		Object[] query = qr.query(sql, new ArrayHandler(), id);
+		Object[] query = qr.query(sql, new ArrayHandler(),id);
+//		String a =Arrays.toString(query).replace("[", "").replace("]", "");
 		return query;
+		
 	}
 }

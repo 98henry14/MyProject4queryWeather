@@ -12,16 +12,18 @@ public class Forecast {
 	public String btfx007;	//白天风向
 	public String wsfl006;	//晚上风力
 	public String wsfx008;	//晚上风向
+	public Date fdate;		//预测时间
 	public String province;	//省
 	public String city;		//市
 	public String district;	//区
-	public Date fdate;
-	@Override 
+	@Override
 	public String toString() {
-		return "Forecast [aid=" + areaid + ", bttq001=" + bttq001 + ", wstq002=" + wstq002 + ", zgqw003=" + zgqw003
-				+ ", zzqw004=" + zdqw004 + ", btfl005=" + btfl005 + ", btfx007=" + btfx007 + ", wsfl006=" + wsfl006
-				+ ", wsfx008=" + wsfx008 + ", fdate=" + fdate + "]";
+		return "Forecast [areaid=" + areaid + ", bttq001=" + bttq001 + ", wstq002=" + wstq002 + ", zgqw003=" + zgqw003
+				+ ", zdqw004=" + zdqw004 + ", btfl005=" + btfl005 + ", btfx007=" + btfx007 + ", wsfl006=" + wsfl006
+				+ ", wsfx008=" + wsfx008 + ", fdate=" + fdate + ", province=" + province + ", city=" + city
+				+ ", district=" + district + "]";
 	}
+
 
 
 	
