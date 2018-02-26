@@ -58,7 +58,7 @@ public class TestWeather {
 					}
 				//将录入信息写入myJson中
 				JSONObject  myJson = JSONObject.fromObject(respJson);
-				JSONObject json = JSONObject.fromObject(myJson.getJSONObject("forecast").getJSONObject("24h"));
+				JSONObject json = myJson.getJSONObject("forecast").getJSONObject("24h");
 //				json.toBean(json, LinkedHashMap.class);
 				JSONObject day24Json = null;
 				JSONObject forejson = null;
@@ -71,8 +71,7 @@ public class TestWeather {
 						Forecast fore = new Forecast();
 						cd.add(cd.DATE, 1);
 						Date nextday = cd.getTime();
-						
-						day24Json = (JSONObject) json.get(k);
+						day24Json = (JSONObject)json.get(k);
 						forejson = day24Json.getJSONArray("1001001").getJSONObject(j);
 						fore.areaid = k.toString();
 						fore.fdate = f.parse(f.format(nextday));

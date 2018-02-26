@@ -19,11 +19,12 @@ public class ForecastDao {
 
 	//insert weather condition to DB
 	public void addWeather(List<Forecast> fclist) throws SQLException{
-		QueryRunner runner = new QueryRunner();
-		String sql = "insert into forecast values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		//该处使用knowparatype参数避免sqlserver对占位符的获取不准确，新建queryrunner提供true参数
+		QueryRunner runner = new QueryRunner(true);
+		String sql = "insert into forecast values(?,?,?,?,?,?,?,?,?,?,?,?)";
 		Connection conn = DataSourceUtils.getConnection();
 		for (Forecast fc : fclist) {
-			runner.update(conn, sql, fc.areaid,fc.bttq001,fc.wstq002,
+			runner.update(conn, sql,fc.bttq001,fc.wstq002,
 					fc.zgqw003,fc.zdqw004,fc.btfl005,fc.btfx007,
 					fc.wsfl006,fc.wsfx008,fc.fdate,this.queryLocation(fc.areaid)[0],
 					this.queryLocation(fc.areaid)[1],this.queryLocation(fc.areaid)[2]); 
@@ -42,7 +43,7 @@ public class ForecastDao {
 	//delete weather data some forecast weather data
 	public int deleteForecast() throws SQLException {
 		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
-		String sql = "DELETE FROM forecast WHERE 预测时间 > NOW()";
+		String sql = "DELETE FROM forecast WHERE 日期 > getdate()";
 		return qr.update(sql);
 	}
 	
